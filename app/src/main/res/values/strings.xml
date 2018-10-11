@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">QrCodeDemo</string>
+    <string name="scan">扫一扫</string>
+    <string name="no_camara_permission">没有相机权限</string>
+    <string name="request_camara_permission">扫一扫功能需要相机权限，请允许程序获取相机权限</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="create">生成二维码</string>
+    <string name="text">请输入文本</string>
+    <string name="qr_code_img">二维码生成的图片</string>
+    <string name="text_null">文本为空</string>
+</resources>
