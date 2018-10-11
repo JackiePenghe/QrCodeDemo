@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ScanActivity">
 
     <com.jackiepenghe.qrcodelibrary.ZXingView
         android:id="@+id/zxing_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
         app:qrcv_animTime="1000"
         app:qrcv_barCodeTipText="将条码放入框内，即可自动扫描"
         app:qrcv_barcodeRectHeight="120dp"
@@ -40,4 +45,9 @@
         app:qrcv_toolbarHeight="56dp"
         app:qrcv_topOffset="80dp"
         app:qrcv_verticalBias="-1" />
-</android.support.constraint.ConstraintLayout>
+
+    <include
+        layout="@layout/view_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

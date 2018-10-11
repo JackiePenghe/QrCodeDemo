@@ -30,4 +30,6 @@ dependencies {
     //noinspection GradleDependency
     implementation 'com.yanzhenjie:permission:2.0.0-rc12'
     implementation project(':qrcodelibrary')
+    //zxing库
+    implementation 'com.google.zxing:core:3.3.3'
 }

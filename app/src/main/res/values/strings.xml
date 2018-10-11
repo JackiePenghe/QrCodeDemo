@@ -9,4 +9,25 @@
     <string name="text">请输入文本</string>
     <string name="qr_code_img">二维码生成的图片</string>
     <string name="text_null">文本为空</string>
+    <string name="start_preview">开始预览</string>
+    <string name="stop_preview">停止预览</string>
+    <string name="start_identifying">开始识别</string>
+    <string name="stop_identifying">停止识别</string>
+    <string name="start_identifying_the_display_scan_box">开始识别显示扫描框</string>
+    <string name="pause_identifying_the_display_scan_box">暂停识别显示扫描框</string>
+    <string name="display_scan_box">显示扫描框</string>
+    <string name="hide_scan_box">隐藏扫描框</string>
+    <string name="identify_only_the_code_in_the_scan_box">仅识别扫描框中的码</string>
+    <string name="identify_the_code_in_the_entire_screen">识别整个屏幕中的码</string>
+    <string name="turn_on_the_flash">打开闪光灯</string>
+    <string name="turn_off_the_flash">关闭闪光灯</string>
+    <string name="identify_only_one_dimensional_bar_codes">仅识别一维条码</string>
+    <string name="identify_only_2d_bar_codes">仅识别二维条码</string>
+    <string name="identify_only_qr_code">仅识别QRCode</string>
+    <string name="identify_only_code128">仅识别Code128</string>
+    <string name="identify_only_ean13">仅识别EAN13</string>
+    <string name="identify_only_high_frequency_formats">仅识别高频率格式</string>
+    <string name="identify_all_codes">识别所有码</string>
+    <string name="custom_recognition_format">自定义识别格式</string>
+    <string name="identify_the_code_in_the_image">识别图片中的码</string>
 </resources>
