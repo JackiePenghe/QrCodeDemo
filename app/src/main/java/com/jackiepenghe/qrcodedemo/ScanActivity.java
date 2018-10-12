@@ -1,14 +1,8 @@
 package com.jackiepenghe.qrcodedemo;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Vibrator;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,13 +22,14 @@ import java.util.Map;
 
 public class ScanActivity extends BaseAppCompatActivity {
 
+    private static final String TAG = ScanActivity.class.getSimpleName();
+    private boolean notDestroyed = true;
     private ZXingView mZXingView;
     private QRCodeView.Delegate delegate = new QRCodeView.Delegate() {
         @Override
         public void onScanQRCodeSuccess(String result) {
             Tool.toastL(ScanActivity.this, "result = " + result);
             vibrate();
-
             mZXingView.startSpot(); // 延迟0.5秒后开始识别
         }
 
@@ -91,7 +86,6 @@ public class ScanActivity extends BaseAppCompatActivity {
      */
     @Override
     protected void initViewData() {
-
     }
 
     /**
@@ -144,8 +138,7 @@ public class ScanActivity extends BaseAppCompatActivity {
     protected void onStart() {
         super.onStart();
         mZXingView.startCamera(); // 打开后置摄像头开始预览，但是并未开始识别
-//        mZXingView.startCamera(Camera.CameraInfo.CAMERA_FACING_FRONT); // 打开前置摄像头开始预览，但是并未开始识别
-
+        mZXingView.setType(BarcodeType.ALL,null);
         mZXingView.startSpotAndShowRect(); // 显示扫描框，并且延迟0.5秒后开始识别
     }
 
@@ -157,9 +150,8 @@ public class ScanActivity extends BaseAppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        mZXingView.stopSpot();
-        mZXingView.stopCamera();
         mZXingView.onDestroy();
+        notDestroyed = false;
         super.onDestroy();
     }
 
@@ -268,5 +260,54 @@ public class ScanActivity extends BaseAppCompatActivity {
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+       startThread();
+    }
+
+
+    private void startThread() {
+
+        //noinspection JavadocReference
+        Thread thread = new Thread() {
+            /**
+             * If this thread was constructed using a separate
+             * <code>Runnable</code> run object, then that
+             * <code>Runnable</code> object's <code>run</code> method is called;
+             * otherwise, this method does nothing and returns.
+             * <p>
+             * Subclasses of <code>Thread</code> should override this method.
+             *
+             * @see #start()
+             * @see #stop()
+             * @see #Thread(ThreadGroup, Runnable, String)
+             */
+            @Override
+            public void run() {
+                int count = 0;
+                super.run();
+                while (notDestroyed){
+                    if (count > 200){
+                        break;
+                    }
+                    count++;
+                    try {
+                        mZXingView.setCameraZoom(count);
+                        Tool.warnOut(TAG,"mZXingView setCameraZoom success! zoom = " + count);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Tool.warnOut(TAG,"mZXingView setCameraZoom failed! zoom = " + count);
+                        break;
+                    }
+                }
+                Tool.sleep(1000);
+                mZXingView.setCameraZoom((count-1)/3);
+            }
+        };
+        thread.start();
     }
 }

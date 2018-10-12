@@ -400,9 +400,9 @@ public abstract class QRCodeView extends RelativeLayout implements Camera.Previe
 //    }
 
     void onScanBoxRectChanged(Rect rect) {
-//        if (mCamera != null && rect.left > 0 && rect.top > 0) {
+//        if (camera14 != null && rect.left > 0 && rect.top > 0) {
 //            try {
-//                final Camera.Parameters parameters = mCamera.getParameters();
+//                final Camera.Parameters parameters = camera14.getParameters();
 //                if (parameters.getMaxNumFocusAreas() > 0) {
 //                    List<Camera.Area> focusAreas = new ArrayList<>();
 //                    Rect focusRect = calculateFocusArea(rect, 1f, parameters.getPreviewSize());
@@ -421,8 +421,8 @@ public abstract class QRCodeView extends RelativeLayout implements Camera.Previe
 //                    mHandler.postDelayed(new Runnable() {
 //                        @Override
 //                        public void run() {
-//                            if (mCamera != null) {
-//                                mCamera.setParameters(parameters);
+//                            if (camera14 != null) {
+//                                camera14.setParameters(parameters);
 //                            }
 //                        }
 //                    }, 500);

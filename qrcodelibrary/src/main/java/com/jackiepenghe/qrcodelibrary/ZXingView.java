@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.hardware.Camera;
 import android.util.AttributeSet;
 
 import com.google.zxing.BarcodeFormat;
@@ -126,5 +127,11 @@ public class ZXingView extends QRCodeView {
             }
         }
         return new ScanResult(result);
+    }
+
+    public void setCameraZoom(int zoom){
+        Camera.Parameters parameters = mCamera.getParameters();
+        parameters.setZoom(zoom);
+        mCamera.setParameters(parameters);
     }
 }
