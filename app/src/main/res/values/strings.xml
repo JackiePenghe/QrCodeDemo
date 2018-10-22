@@ -30,4 +30,7 @@
     <string name="identify_all_codes">识别所有码</string>
     <string name="custom_recognition_format">自定义识别格式</string>
     <string name="identify_the_code_in_the_image">识别图片中的码</string>
+    <string name="scan_way">扫码方式</string>
+    <string name="zxing">ZXing</string>
+    <string name="zbar">ZBar</string>
 </resources>

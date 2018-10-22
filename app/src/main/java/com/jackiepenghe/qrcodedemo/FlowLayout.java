@@ -96,11 +96,11 @@ public class FlowLayout extends ViewGroup {
                 //取出子控件的margin属性
                 MarginLayoutParams marginLayoutParams = (MarginLayoutParams) childView.getLayoutParams();
                 //计算子控件的宽度
-                int childViewWidth = childView.getMeasuredWidth() + marginLayoutParams.leftMargin + marginLayoutParams.rightMargin;
+                int childViewWidth = childView.getMeasuredWidth() + marginLayoutParams.leftMargin + marginLayoutParams.rightMargin + childView.getPaddingLeft() + childView.getPaddingRight();
                 //计算子控件的高度
-                int childViewHeight = childView.getMeasuredHeight() + marginLayoutParams.topMargin + marginLayoutParams.bottomMargin;
+                int childViewHeight = childView.getMeasuredHeight() + marginLayoutParams.topMargin + marginLayoutParams.bottomMargin + childView.getPaddingTop() + childView.getPaddingBottom();
                 // 如果当前行的宽度大于建议的宽度，就需要换行了
-                if (currentLineWidth + childViewWidth > widthSize) {//换行
+                if (currentLineWidth + childViewWidth > widthSize) {
                     //取当前行的数据中，当前宽度与测量之后计算的宽度的最大的一个
                     measuredWidth = Math.max(currentLineWidth, measuredWidth);
                     //将测量高度累加一次（因为现在多了一行，需要增加一行的高度）
@@ -180,11 +180,16 @@ public class FlowLayout extends ViewGroup {
                 //获取子控件
                 View childView = views.get(j);
                 MarginLayoutParams marginLayoutParams = (MarginLayoutParams) childView.getLayoutParams();
-                left = currentLeft + marginLayoutParams.leftMargin; //子控件的左边的坐标
-                top = currentTop +marginLayoutParams.topMargin; //子控件的顶部的坐标
-                right = left + childView.getMeasuredWidth() ; //子控件的右边的坐标
-                bottom = top + childView.getMeasuredHeight(); //子控件底部的坐标
-                childView.layout(left, top, right, bottom);//摆放子控件
+                //子控件的左边的坐标
+                left = currentLeft + marginLayoutParams.leftMargin + childView.getPaddingLeft();
+                //子控件的顶部的坐标
+                top = currentTop +marginLayoutParams.topMargin + childView.getPaddingTop();
+                //子控件的右边的坐标
+                right = left + childView.getMeasuredWidth() + childView.getPaddingRight();
+                //子控件底部的坐标
+                bottom = top + childView.getMeasuredHeight() + childView.getPaddingBottom();
+                //摆放子控件
+                childView.layout(left, top, right, bottom);
                 //将起始坐标currentLeft更新一次
                 currentLeft = right + marginLayoutParams.rightMargin;
             }
@@ -199,6 +204,11 @@ public class FlowLayout extends ViewGroup {
     }
 
     public interface OnItemClickListener{
+        /**
+         * 子控件被点击时进行的回调
+         * @param view 子控件
+         * @param position 子控件在当前布局中的位置
+         */
         void onItemClick(View view, int position);
     }
 

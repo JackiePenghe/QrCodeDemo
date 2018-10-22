@@ -41,8 +41,8 @@ dependencies {
 
 version = "0.0.2"
 
-def siteUrl = 'https://github.com/JackiePenghe/QRcodeLibrary'
-def gitUrl = 'https://github.com/JackiePenghe/QRcodeLibrary.git'
+def siteUrl = 'https://github.com/JackiePenghe/QrCodeDemo'
+def gitUrl = 'https://github.com/JackiePenghe/QrCodeDemo.git'
 
 group = "com.jackiepenghe"
 

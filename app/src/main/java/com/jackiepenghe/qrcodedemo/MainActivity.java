@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,9 +49,10 @@ public class MainActivity extends BaseAppCompatActivity {
     private Action<List<String>> onGrantedListener = new Action<List<String>>() {
         @Override
         public void onAction(List<String> permissions) {
-            toScanActivity();
+            showScanWayDialog();
         }
     };
+
     private Action<List<String>> onDeniedListener = new Action<List<String>>() {
         @Override
         public void onAction(List<String> permissions) {
@@ -196,8 +194,35 @@ public class MainActivity extends BaseAppCompatActivity {
         return false;
     }
 
-    private void toScanActivity() {
-        Intent intent = new Intent(MainActivity.this, ScanActivity.class);
+    private void toZXingScanActivity() {
+        Intent intent = new Intent(MainActivity.this, ZXingScanActivity.class);
+        startActivity(intent);
+    }
+
+    private void showScanWayDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.scan_way)
+                .setItems(R.array.scan_way_items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case 0:
+                                toZXingScanActivity();
+                                break;
+                            case 1:
+                                toZBarScanActivity();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.cancel,null)
+                .show();
+    }
+
+    private void toZBarScanActivity() {
+        Intent intent = new Intent(this,ZBarScanActivity.class);
         startActivity(intent);
     }
 

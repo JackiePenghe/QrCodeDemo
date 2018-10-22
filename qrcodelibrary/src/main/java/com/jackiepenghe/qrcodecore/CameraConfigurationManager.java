@@ -78,7 +78,7 @@ final class CameraConfigurationManager {
     private void doSetTorch(Camera camera, boolean newSetting) {
         Camera.Parameters parameters = camera.getParameters();
         String flashMode;
-        /** 是否支持闪光灯 */
+        //是否支持闪光灯
         if (newSetting) {
             flashMode = findSettableValue(parameters.getSupportedFlashModes(), Camera.Parameters.FLASH_MODE_TORCH, Camera.Parameters.FLASH_MODE_ON);
         } else {
