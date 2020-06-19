@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jackiepenghe.qrcodedemo.FlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/start_preview"
+        style="@style/WrapWrapTv"
+        android:text="@string/start_preview" />
+
+    <TextView
+        android:id="@+id/stop_preview"
+        style="@style/WrapWrapTv"
+        android:text="@string/stop_preview" />
+
+    <TextView
+        android:id="@+id/start_spot"
+        style="@style/WrapWrapTv"
+        android:text="@string/start_identifying" />
+
+    <TextView
+        android:id="@+id/stop_spot"
+        style="@style/WrapWrapTv"
+        android:text="@string/stop_identifying" />
+
+    <TextView
+        android:id="@+id/start_spot_showrect"
+        style="@style/WrapWrapTv"
+        android:text="@string/start_identifying_the_display_scan_box" />
+
+    <TextView
+        android:id="@+id/stop_spot_hiddenrect"
+        style="@style/WrapWrapTv"
+        android:text="@string/pause_identifying_the_display_scan_box" />
+
+    <TextView
+        android:id="@+id/show_scan_rect"
+        style="@style/WrapWrapTv"
+        android:text="@string/display_scan_box" />
+
+    <TextView
+        android:id="@+id/hidden_scan_rect"
+        style="@style/WrapWrapTv"
+        android:text="@string/hide_scan_box" />
+
+    <TextView
+        android:id="@+id/decode_scan_box_area"
+        style="@style/WrapWrapTv"
+        android:text="@string/identify_only_the_code_in_the_scan_box" />
+
+    <TextView
+        android:id="@+id/decode_full_screen_area"
+        style="@style/WrapWrapTv"
+        android:text="@string/identify_the_code_in_the_entire_screen" />
+
+    <TextView
+        android:id="@+id/open_flashlight"
+        style="@style/WrapWrapTv"
+        android:text="@string/turn_on_the_flash" />
+
+    <TextView
+        android:id="@+id/close_flashlight"
+        style="@style/WrapWrapTv"
+        android:text="@string/turn_off_the_flash" />
+
+    <TextView
+        android:id="@+id/scan_one_dimension"
+        style="@style/WrapWrapTv"
+        android:text="@string/identify_only_one_dimensional_bar_codes" />
+
+    <TextView
+        android:id="@+id/scan_two_dimension"
+        style="@style/WrapWrapTv"
+        android:text="@string/identify_only_2d_bar_codes" />
+
+    <TextView
+        android:id="@+id/scan_qr_code"
+        style="@style/WrapWrapTv"
+        android:text="@string/identify_only_qr_code" />
+
+    <TextView
+        android:id="@+id/scan_code128"
+        style="@style/WrapWrapTv"
+        android:text="@string/identify_only_code128" />
+
+    <TextView
+        android:id="@+id/scan_ean13"
+        style="@style/WrapWrapTv"
+        android:text="@string/identify_only_ean13" />
+
+    <TextView
+        android:id="@+id/scan_high_frequency"
+        style="@style/WrapWrapTv"
+        android:text="@string/identify_only_high_frequency_formats" />
+
+    <TextView
+        android:id="@+id/scan_all"
+        style="@style/WrapWrapTv"
+        android:text="@string/identify_all_codes" />
+
+    <TextView
+        android:id="@+id/scan_custom"
+        style="@style/WrapWrapTv"
+        android:text="@string/custom_recognition_format" />
+
+    <TextView
+        android:id="@+id/choose_qrcde_from_gallery"
+        style="@style/WrapWrapTv"
+        android:text="@string/identify_the_code_in_the_image" />
+</com.jackiepenghe.qrcodedemo.FlowLayout>

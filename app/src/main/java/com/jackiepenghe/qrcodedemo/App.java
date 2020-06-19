@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.ContentProvider;
 import android.os.Build;
 
-import com.jackiepenghe.baselibrary.Tool;
+import com.sscl.baselibrary.utils.DebugUtil;
 
 public class App extends Application {
     /**
@@ -29,6 +29,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Tool.setDebugFlag(true);
+        DebugUtil.setDebugFlag(true);
     }
 }

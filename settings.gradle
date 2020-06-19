@@ -1,1 +1,2 @@
-include ':app', ':qrcodelibrary', ':zbarlibrary'
+include ':zbarlibrary'
+include ':app', ':zxinglibrary'

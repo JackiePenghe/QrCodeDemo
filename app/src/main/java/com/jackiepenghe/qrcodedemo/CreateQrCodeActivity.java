@@ -8,9 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.jackiepenghe.baselibrary.BaseAppCompatActivity;
-import com.jackiepenghe.baselibrary.Tool;
-import com.jackiepenghe.qrcodelibrary.QRCodeEncoder;
+import com.sscl.baselibrary.activity.BaseAppCompatActivity;
+import com.sscl.baselibrary.utils.ToastUtil;
 
 public class CreateQrCodeActivity extends BaseAppCompatActivity {
 
@@ -32,15 +31,15 @@ public class CreateQrCodeActivity extends BaseAppCompatActivity {
 
     private void createQrCode() {
         String text = editText.getText().toString();
-        if (text.isEmpty()){
-            Tool.toastL(this,R.string.text_null);
+        if (text.isEmpty()) {
+            ToastUtil.toastLong(this, R.string.text_null);
             return;
         }
-        Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(text, 600);
-        if (bitmap == null){
-            return;
-        }
-        imageView.setImageBitmap(bitmap);
+//        Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(text, 600);
+//        if (bitmap == null) {
+//            return;
+//        }
+//        imageView.setImageBitmap(bitmap);
     }
 
     /**

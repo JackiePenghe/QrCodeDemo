@@ -1,5 +1,6 @@
 package com.jackiepenghe.qrcodedemo;
 
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Vibrator;
@@ -9,33 +10,33 @@ import android.view.View;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
-import com.jackiepenghe.baselibrary.BaseAppCompatActivity;
-import com.jackiepenghe.baselibrary.Tool;
-import com.jackiepenghe.qrcodecore.BarcodeType;
-import com.jackiepenghe.qrcodecore.QRCodeView;
-import com.jackiepenghe.qrcodelibrary.ZXingView;
+import com.sscl.zxinglibrary.qrcodecore.BarcodeType;
+import com.sscl.zxinglibrary.qrcodecore.QRCodeView;
+import com.sscl.zxinglibrary.ZXingView;
+import com.sscl.baselibrary.activity.BaseAppCompatActivity;
+import com.sscl.baselibrary.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class ZXingScanActivity extends BaseAppCompatActivity {
+
+public class ZXingScanActivity extends BaseAppCompatActivity{
 
     private static final String TAG = ZXingScanActivity.class.getSimpleName();
-    private boolean notDestroyed = true;
     private ZXingView mZXingView;
     private QRCodeView.Delegate delegate = new QRCodeView.Delegate() {
         @Override
         public void onScanQRCodeSuccess(String result) {
-            Tool.toastL(ZXingScanActivity.this, "result = " + result);
+            ToastUtil.toastLong(ZXingScanActivity.this, "result = " + result);
             vibrate();
             mZXingView.startSpot(); // 延迟0.5秒后开始识别
         }
 
         @Override
         public void onScanQRCodeOpenCameraError() {
-            Tool.toastL(ZXingScanActivity.this, "onScanQRCodeOpenCameraError");
+            ToastUtil.toastLong(ZXingScanActivity.this, "onScanQRCodeOpenCameraError");
         }
     };
 
@@ -150,7 +151,6 @@ public class ZXingScanActivity extends BaseAppCompatActivity {
     @Override
     protected void onDestroy() {
         mZXingView.onDestroy();
-        notDestroyed = false;
         super.onDestroy();
     }
 
@@ -159,6 +159,10 @@ public class ZXingScanActivity extends BaseAppCompatActivity {
         vibrator.vibrate(200);
     }
 
+    /**
+     * 布局中直接定义的点击事件
+     * @param v
+     */
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.start_preview:

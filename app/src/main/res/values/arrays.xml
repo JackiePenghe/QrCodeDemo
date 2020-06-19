@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="scan_way_items">
-        <item>@string/zxing</item>
-        <item>@string/zbar</item>
+    <string-array name="scan_way">
+        <item>zxing</item>
+        <item>zbar</item>
     </string-array>
 </resources>

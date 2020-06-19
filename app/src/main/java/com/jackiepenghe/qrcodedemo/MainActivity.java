@@ -3,14 +3,15 @@ package com.jackiepenghe.qrcodedemo;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.jackiepenghe.baselibrary.BaseAppCompatActivity;
-import com.jackiepenghe.baselibrary.Tool;
+import androidx.appcompat.app.AlertDialog;
+
+import com.sscl.baselibrary.activity.BaseAppCompatActivity;
+import com.sscl.baselibrary.utils.ToastUtil;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
@@ -38,7 +39,7 @@ public class MainActivity extends BaseAppCompatActivity {
                             .start();
                     break;
                 case R.id.create_btn:
-                    Intent intent = new Intent(MainActivity.this,CreateQrCodeActivity.class);
+                    Intent intent = new Intent(MainActivity.this, CreateQrCodeActivity.class);
                     startActivity(intent);
                     break;
                 default:
@@ -64,7 +65,7 @@ public class MainActivity extends BaseAppCompatActivity {
                         .start();
                 return;
             }
-            Tool.toastL(MainActivity.this, R.string.no_camara_permission);
+            ToastUtil.toastLong(MainActivity.this, R.string.no_camara_permission);
         }
     };
     private Rationale<List<String>> rationaleListener = new Rationale<List<String>>() {
@@ -194,35 +195,35 @@ public class MainActivity extends BaseAppCompatActivity {
         return false;
     }
 
-    private void toZXingScanActivity() {
+    /**
+     * 显示使用哪种方式扫描二维码
+     */
+    private void showScanWayDialog() {
+        new AlertDialog.Builder(this).setTitle(R.string.scan_way)
+                .setItems(R.array.scan_way, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                       switch (which){
+                           case 0:
+                               toZxingScanActivity();
+                               break;
+                           case 1:
+                               toZbarScanActivity();
+                               break;
+                       }
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
+
+    private void toZxingScanActivity() {
         Intent intent = new Intent(MainActivity.this, ZXingScanActivity.class);
         startActivity(intent);
     }
 
-    private void showScanWayDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.scan_way)
-                .setItems(R.array.scan_way_items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
-                            case 0:
-                                toZXingScanActivity();
-                                break;
-                            case 1:
-                                toZBarScanActivity();
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                })
-                .setNegativeButton(R.string.cancel,null)
-                .show();
-    }
-
-    private void toZBarScanActivity() {
-        Intent intent = new Intent(this,ZBarScanActivity.class);
+    private void toZbarScanActivity() {
+        Intent intent = new Intent(MainActivity.this, ZbarScanActivity.class);
         startActivity(intent);
     }
 

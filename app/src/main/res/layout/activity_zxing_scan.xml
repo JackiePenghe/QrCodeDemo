@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".ZXingScanActivity">
 
-    <com.jackiepenghe.qrcodelibrary.ZXingView
+    <com.sscl.zxinglibrary.ZXingView
         android:id="@+id/zxing_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"

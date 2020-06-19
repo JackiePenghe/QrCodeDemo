@@ -1,10 +1,8 @@
 package com.jackiepenghe.qrcodedemo;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-import com.jackiepenghe.baselibrary.BaseSplashActivity;
+import com.sscl.baselibrary.activity.BaseSplashActivity;
 
 public class SplashActivity extends BaseSplashActivity {
 

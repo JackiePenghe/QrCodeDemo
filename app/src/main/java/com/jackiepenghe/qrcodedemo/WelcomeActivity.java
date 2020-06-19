@@ -2,7 +2,7 @@ package com.jackiepenghe.qrcodedemo;
 
 import android.content.Intent;
 
-import com.jackiepenghe.baselibrary.BaseWelcomeActivity;
+import com.sscl.baselibrary.activity.BaseWelcomeActivity;
 
 public class WelcomeActivity extends BaseWelcomeActivity {
     /**
