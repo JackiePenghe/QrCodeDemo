@@ -10,7 +10,6 @@ import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Result;
 import com.google.zxing.common.GlobalHistogramBinarizer;
 import com.google.zxing.common.HybridBinarizer;
-import com.sscl.zxinglibrary.qrcodecore.BGAQRCodeUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +17,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.bingoogolapple.qrcode.zxingcore.BGAQRCodeUtil;
 
 /**
  * 作者:王浩 邮件:bingoogolapple@gmail.com
@@ -123,6 +123,7 @@ public class QRCodeDecoder {
     static {
         List<BarcodeFormat> highFrequencyFormatList = new ArrayList<>();
         highFrequencyFormatList.add(BarcodeFormat.QR_CODE);
+        highFrequencyFormatList.add(BarcodeFormat.UPC_A);
         highFrequencyFormatList.add(BarcodeFormat.EAN_13);
         highFrequencyFormatList.add(BarcodeFormat.CODE_128);
 

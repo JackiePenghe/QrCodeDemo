@@ -34,7 +34,7 @@ android {
 
 dependencies {
     if (hasProperty("publishAar")) {
-        compile "cn.bingoogolapple:bga-qrcode-core:1.3.7"
+        api "cn.bingoogolapple:bga-qrcode-core:1.3.7"
     }
 }
 

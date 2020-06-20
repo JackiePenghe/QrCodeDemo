@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".CreateQrCodeActivity">
 
@@ -16,7 +17,6 @@
         tools:ignore="Autofill" />
 
     <Button
-        app:layout_constraintTop_toBottomOf="@id/text_et"
         android:text="@string/create"
         android:id="@+id/create"
         android:layout_width="match_parent"
@@ -25,11 +25,8 @@
     <ImageView
         android:id="@+id/image_view"
         android:scaleType="fitCenter"
-        app:layout_constraintTop_toBottomOf="@id/create"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:layout_height="0dp"
         android:contentDescription="@string/qr_code_img" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

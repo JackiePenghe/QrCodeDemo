@@ -1,4 +1,4 @@
-package com.sscl.zxinglibrary.qrcodecore;
+package cn.bingoogolapple.qrcode.zxingcore;
 
 import android.graphics.Bitmap;
 import android.hardware.Camera;

@@ -1,4 +1,4 @@
-package com.sscl.zxinglibrary.qrcodecore;
+package cn.bingoogolapple.qrcode.zbarcore;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,9 +10,12 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.WindowManager;
 
 public class BGAQRCodeUtil {
@@ -27,8 +30,18 @@ public class BGAQRCodeUtil {
     }
 
     public static void d(String msg) {
+        d("BGAQRCode", msg);
+    }
+
+    public static void printRect(String prefix, Rect rect) {
+        d("BGAQRCodeFocusArea", prefix + " centerX：" + rect.centerX() + " centerY：" + rect.centerY() + " width：" + rect.width() + " height：" + rect.height()
+                + " rectHalfWidth：" + rect.width() / 2 + " rectHalfHeight：" + rect.height() / 2
+                + " left：" + rect.left + " top：" + rect.top + " right：" + rect.right + " bottom：" + rect.bottom);
+    }
+
+    public static void d(String tag, String msg) {
         if (debug) {
-            Log.d("BGAQRCode", msg);
+            Log.d(tag, msg);
         }
     }
 
@@ -120,6 +133,49 @@ public class BGAQRCodeUtil {
         paint.setColorFilter(new PorterDuffColorFilter(tintColor, PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(inputBitmap, 0, 0, paint);
         return outputBitmap;
+    }
+
+    /**
+     * 计算对焦和测光区域
+     *
+     * @param coefficient        比率
+     * @param originFocusCenterX 对焦中心点X
+     * @param originFocusCenterY 对焦中心点Y
+     * @param originFocusWidth   对焦宽度
+     * @param originFocusHeight  对焦高度
+     * @param previewViewWidth   预览宽度
+     * @param previewViewHeight  预览高度
+     */
+    static Rect calculateFocusMeteringArea(float coefficient,
+            float originFocusCenterX, float originFocusCenterY,
+            int originFocusWidth, int originFocusHeight,
+            int previewViewWidth, int previewViewHeight) {
+
+        int halfFocusAreaWidth = (int) (originFocusWidth * coefficient / 2);
+        int halfFocusAreaHeight = (int) (originFocusHeight * coefficient / 2);
+
+        int centerX = (int) (originFocusCenterX / previewViewWidth * 2000 - 1000);
+        int centerY = (int) (originFocusCenterY / previewViewHeight * 2000 - 1000);
+
+        RectF rectF = new RectF(BGAQRCodeUtil.clamp(centerX - halfFocusAreaWidth, -1000, 1000),
+                BGAQRCodeUtil.clamp(centerY - halfFocusAreaHeight, -1000, 1000),
+                BGAQRCodeUtil.clamp(centerX + halfFocusAreaWidth, -1000, 1000),
+                BGAQRCodeUtil.clamp(centerY + halfFocusAreaHeight, -1000, 1000));
+        return new Rect(Math.round(rectF.left), Math.round(rectF.top),
+                Math.round(rectF.right), Math.round(rectF.bottom));
+    }
+
+    static int clamp(int value, int min, int max) {
+        return Math.min(Math.max(value, min), max);
+    }
+
+    /**
+     * 计算手指间距
+     */
+    static float calculateFingerSpacing(MotionEvent event) {
+        float x = event.getX(0) - event.getX(1);
+        float y = event.getY(0) - event.getY(1);
+        return (float) Math.sqrt(x * x + y * y);
     }
 
     /**

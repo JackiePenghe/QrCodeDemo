@@ -10,8 +10,6 @@ import android.view.View;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
-import com.sscl.zxinglibrary.qrcodecore.BarcodeType;
-import com.sscl.zxinglibrary.qrcodecore.QRCodeView;
 import com.sscl.zxinglibrary.ZXingView;
 import com.sscl.baselibrary.activity.BaseAppCompatActivity;
 import com.sscl.baselibrary.utils.ToastUtil;
@@ -20,6 +18,9 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+
+import cn.bingoogolapple.qrcode.zxingcore.BarcodeType;
+import cn.bingoogolapple.qrcode.zxingcore.QRCodeView;
 
 
 public class ZXingScanActivity extends BaseAppCompatActivity{
@@ -32,6 +33,23 @@ public class ZXingScanActivity extends BaseAppCompatActivity{
             ToastUtil.toastLong(ZXingScanActivity.this, "result = " + result);
             vibrate();
             mZXingView.startSpot(); // 延迟0.5秒后开始识别
+        }
+
+        @Override
+        public void onCameraAmbientBrightnessChanged(boolean isDark) {
+            // 这里是通过修改提示文案来展示环境是否过暗的状态，接入方也可以根据 isDark 的值来实现其他交互效果
+            String tipText = mZXingView.getScanBoxView().getTipText();
+            String ambientBrightnessTip = "\n环境过暗，请打开闪光灯";
+            if (isDark) {
+                if (!tipText.contains(ambientBrightnessTip)) {
+                    mZXingView.getScanBoxView().setTipText(tipText + ambientBrightnessTip);
+                }
+            } else {
+                if (tipText.contains(ambientBrightnessTip)) {
+                    tipText = tipText.substring(0, tipText.indexOf(ambientBrightnessTip));
+                    mZXingView.getScanBoxView().setTipText(tipText);
+                }
+            }
         }
 
         @Override

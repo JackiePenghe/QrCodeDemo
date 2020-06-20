@@ -1,4 +1,4 @@
-package cn.bingoogolapple.qrcode.core;
+package cn.bingoogolapple.qrcode.zxingcore;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -18,7 +18,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
-import cn.bingoogolapple.qrcode.zbar.R;
+import com.sscl.zxinglibrary.qrcodelibrary.R;
 
 public class ScanBoxView extends View {
     private int mMoveStepDistance;

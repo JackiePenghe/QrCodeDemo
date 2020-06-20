@@ -1,4 +1,4 @@
-package cn.bingoogolapple.qrcode.core;
+package cn.bingoogolapple.qrcode.zbarcore;
 
 import android.content.Context;
 import android.graphics.Point;

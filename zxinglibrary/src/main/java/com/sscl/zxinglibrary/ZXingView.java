@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.hardware.Camera;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import com.google.zxing.BarcodeFormat;
@@ -16,13 +16,13 @@ import com.google.zxing.Result;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.common.GlobalHistogramBinarizer;
 import com.google.zxing.common.HybridBinarizer;
-import com.sscl.zxinglibrary.qrcodecore.BGAQRCodeUtil;
-import com.sscl.zxinglibrary.qrcodecore.BarcodeType;
-import com.sscl.zxinglibrary.qrcodecore.QRCodeView;
-import com.sscl.zxinglibrary.qrcodecore.ScanResult;
 
 import java.util.Map;
 
+import cn.bingoogolapple.qrcode.zxingcore.BGAQRCodeUtil;
+import cn.bingoogolapple.qrcode.zxingcore.BarcodeType;
+import cn.bingoogolapple.qrcode.zxingcore.QRCodeView;
+import cn.bingoogolapple.qrcode.zxingcore.ScanResult;
 
 public class ZXingView extends QRCodeView {
     private MultiFormatReader mMultiFormatReader;
@@ -82,7 +82,6 @@ public class ZXingView extends QRCodeView {
 
     @Override
     protected ScanResult processData(byte[] data, int width, int height, boolean isRetry) {
-        String result = null;
         Result rawResult = null;
         Rect scanBoxAreaRect = null;
 
@@ -109,29 +108,37 @@ public class ZXingView extends QRCodeView {
             mMultiFormatReader.reset();
         }
 
-        if (rawResult != null) {
-            result = rawResult.getText();
+        if (rawResult == null) {
+            return null;
+        }
 
-            BarcodeFormat barcodeFormat = rawResult.getBarcodeFormat();
-            BGAQRCodeUtil.d("格式为：" + barcodeFormat.name());
+        String result = rawResult.getText();
+        if (TextUtils.isEmpty(result)) {
+            return null;
+        }
 
-            if (isShowLocationPoint()) {
-                ResultPoint[] resultPoints = rawResult.getResultPoints();
-                final PointF[] pointArr = new PointF[resultPoints.length];
-                int pointIndex = 0;
-                for (ResultPoint resultPoint : resultPoints) {
-                    pointArr[pointIndex] = new PointF(resultPoint.getX(), resultPoint.getY());
-                    pointIndex++;
-                }
-                transformToViewCoordinates(pointArr, scanBoxAreaRect);
+        BarcodeFormat barcodeFormat = rawResult.getBarcodeFormat();
+        BGAQRCodeUtil.d("格式为：" + barcodeFormat.name());
+
+        // 处理自动缩放和定位点
+        boolean isNeedAutoZoom = isNeedAutoZoom(barcodeFormat);
+        if (isShowLocationPoint() || isNeedAutoZoom) {
+            ResultPoint[] resultPoints = rawResult.getResultPoints();
+            final PointF[] pointArr = new PointF[resultPoints.length];
+            int pointIndex = 0;
+            for (ResultPoint resultPoint : resultPoints) {
+                pointArr[pointIndex] = new PointF(resultPoint.getX(), resultPoint.getY());
+                pointIndex++;
+            }
+
+            if (transformToViewCoordinates(pointArr, scanBoxAreaRect, isNeedAutoZoom, result)) {
+                return null;
             }
         }
         return new ScanResult(result);
     }
 
-    public void setCameraZoom(int zoom){
-        Camera.Parameters parameters = mCamera.getParameters();
-        parameters.setZoom(zoom);
-        mCamera.setParameters(parameters);
+    private boolean isNeedAutoZoom(BarcodeFormat barcodeFormat) {
+        return isAutoZoom() && barcodeFormat == BarcodeFormat.QR_CODE;
     }
 }

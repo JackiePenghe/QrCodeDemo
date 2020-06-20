@@ -1,4 +1,4 @@
-package cn.bingoogolapple.qrcode.core;
+package cn.bingoogolapple.qrcode.zxingcore;
 
 /**
  * 作者:王浩

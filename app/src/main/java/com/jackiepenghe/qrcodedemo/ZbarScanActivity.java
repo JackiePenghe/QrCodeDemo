@@ -14,8 +14,8 @@ import com.sscl.baselibrary.utils.ToastUtil;
 
 import java.util.ArrayList;
 
-import cn.bingoogolapple.qrcode.core.BarcodeType;
-import cn.bingoogolapple.qrcode.core.QRCodeView;
+import cn.bingoogolapple.qrcode.zbarcore.BarcodeType;
+import cn.bingoogolapple.qrcode.zbarcore.QRCodeView;
 import cn.bingoogolapple.qrcode.zbar.BarcodeFormat;
 import cn.bingoogolapple.qrcode.zbar.ZBarView;
 

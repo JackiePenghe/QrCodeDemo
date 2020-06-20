@@ -1,15 +1,19 @@
 package com.jackiepenghe.qrcodedemo;
 
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.sscl.baselibrary.activity.BaseAppCompatActivity;
-import com.sscl.baselibrary.utils.ToastUtil;
+import com.sscl.zxinglibrary.QRCodeEncoder;
+
+import cn.bingoogolapple.qrcode.zxingcore.BGAQRCodeUtil;
 
 public class CreateQrCodeActivity extends BaseAppCompatActivity {
 
@@ -30,16 +34,28 @@ public class CreateQrCodeActivity extends BaseAppCompatActivity {
     };
 
     private void createQrCode() {
-        String text = editText.getText().toString();
-        if (text.isEmpty()) {
-            ToastUtil.toastLong(this, R.string.text_null);
-            return;
-        }
-//        Bitmap bitmap = QRCodeEncoder.syncEncodeQRCode(text, 600);
-//        if (bitmap == null) {
-//            return;
-//        }
-//        imageView.setImageBitmap(bitmap);
+        final String text = editText.getText().toString();
+
+         /*
+        这里为了偷懒，就没有处理匿名 AsyncTask 内部类导致 Activity 泄漏的问题
+        请开发在使用时自行处理匿名内部类导致Activity内存泄漏的问题，处理方式可参考 https://github
+        .com/GeniusVJR/LearningNotes/blob/master/Part1/Android/Android%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%80%BB%E7%BB%93.md
+         */
+        new AsyncTask<Void, Void, Bitmap>() {
+            @Override
+            protected Bitmap doInBackground(Void... params) {
+                return QRCodeEncoder.syncEncodeQRCode(text, BGAQRCodeUtil.dp2px(CreateQrCodeActivity.this, 150));
+            }
+
+            @Override
+            protected void onPostExecute(Bitmap bitmap) {
+                if (bitmap != null) {
+                    imageView.setImageBitmap(bitmap);
+                } else {
+                    Toast.makeText(CreateQrCodeActivity.this, "生成中文二维码失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute();
     }
 
     /**

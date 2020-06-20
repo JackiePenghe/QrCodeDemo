@@ -16,9 +16,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import cn.bingoogolapple.qrcode.core.BarcodeType;
-import cn.bingoogolapple.qrcode.core.QRCodeView;
-import cn.bingoogolapple.qrcode.core.ScanResult;
+import cn.bingoogolapple.qrcode.zbarcore.BarcodeType;
+import cn.bingoogolapple.qrcode.zbarcore.QRCodeView;
+import cn.bingoogolapple.qrcode.zbarcore.ScanResult;
 
 public class ZBarView extends QRCodeView {
 
