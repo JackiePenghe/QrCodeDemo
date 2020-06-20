@@ -20,7 +20,7 @@
         app:qrcv_cornerColor="@color/colorPrimaryDark"
         app:qrcv_cornerLength="20dp"
         app:qrcv_cornerSize="3dp"
-        app:qrcv_customGridScanLineDrawable="@mipmap/custom_grid_scan_line"
+        app:qrcv_customGridScanLineDrawable="@mipmap/qrcode_default_grid_scan_line"
         app:qrcv_isAutoZoom="true"
         app:qrcv_isBarcode="false"
         app:qrcv_isOnlyDecodeScanBoxArea="false"
