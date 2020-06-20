@@ -9,18 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.zxing.DecodeHintType;
 import com.sscl.baselibrary.activity.BaseAppCompatActivity;
 import com.sscl.baselibrary.utils.ToastUtil;
-import com.sscl.zbarlibrary.BarcodeFormat;
-import com.sscl.zbarlibrary.ZBarView;
-import com.sscl.zbarlibrary.qrcodecore.BarcodeType;
-import com.sscl.zbarlibrary.qrcodecore.QRCodeView;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+
+import cn.bingoogolapple.qrcode.core.BarcodeType;
+import cn.bingoogolapple.qrcode.core.QRCodeView;
+import cn.bingoogolapple.qrcode.zbar.BarcodeFormat;
+import cn.bingoogolapple.qrcode.zbar.ZBarView;
 
 /**
  *
@@ -214,7 +211,7 @@ public class ZbarScanActivity extends BaseAppCompatActivity {
             case R.id.scan_custom:
                 mZBarView.changeToScanQRCodeStyle(); // 切换成扫描二维码样式
 
-                List<BarcodeFormat> formatList = new ArrayList<>();
+                ArrayList<BarcodeFormat> formatList = new ArrayList<>();
                 formatList.add(BarcodeFormat.QRCODE);
                 formatList.add(BarcodeFormat.ISBN13);
                 formatList.add(BarcodeFormat.UPCA);
