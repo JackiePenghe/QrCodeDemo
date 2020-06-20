@@ -78,8 +78,8 @@ install {
 
                 developers {
                     developer {
-                        id 'jackiepenghe'
-                        name 'jackiepenghe'
+                        id 'sscl'
+                        name 'sscl'
                         email 'p15583101939@gmail.com'
                     }
                 }
@@ -131,7 +131,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"
-        name = "zxinglibrary"
+        name = "zbarlibrary"
         userOrg = 'sscl'
         websiteUrl = siteUrl
         vcsUrl = gitUrl
