@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,18 +21,17 @@ import cn.bingoogolapple.qrcode.zbar.BarcodeFormat;
 import cn.bingoogolapple.qrcode.zbar.ZBarView;
 
 /**
- *
- *
  * @author jackie
  */
 public class ZbarScanActivity extends BaseAppCompatActivity {
-    
+
     private ZBarView mZBarView;
     private QRCodeView.Delegate delegate = new QRCodeView.Delegate() {
         @Override
         public void onScanQRCodeSuccess(String result) {
             ToastUtil.toastLong(ZbarScanActivity.this, "result = " + result);
             vibrate();
+            playSound();
             mZBarView.startSpot(); // 延迟0.5秒后开始识别
         }
 
@@ -57,6 +57,8 @@ public class ZbarScanActivity extends BaseAppCompatActivity {
             ToastUtil.toastLong(ZbarScanActivity.this, "onScanQRCodeOpenCameraError");
         }
     };
+    private MediaPlayer mediaPlayer;
+
     @Override
     protected void titleBackClicked() {
         onBackPressed();
@@ -133,6 +135,7 @@ public class ZbarScanActivity extends BaseAppCompatActivity {
 
     /**
      * 布局中直接定义的点击事件
+     *
      * @param v
      */
     public void onClick(View v) {
@@ -238,5 +241,24 @@ public class ZbarScanActivity extends BaseAppCompatActivity {
     private void vibrate() {
         Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         vibrator.vibrate(200);
+    }
+
+    /**
+     * 播放二维码扫描声音
+     */
+    private void playSound() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            return;
+        }
+        mediaPlayer = MediaPlayer.create(this, R.raw.qr_code);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                ZbarScanActivity.this. mediaPlayer.stop();
+                ZbarScanActivity.this. mediaPlayer.release();
+                ZbarScanActivity.this. mediaPlayer = null;
+            }
+        });
+        mediaPlayer.start();
     }
 }

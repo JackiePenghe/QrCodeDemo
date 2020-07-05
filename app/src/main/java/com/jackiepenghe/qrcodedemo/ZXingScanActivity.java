@@ -3,6 +3,7 @@ package com.jackiepenghe.qrcodedemo;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +24,7 @@ import cn.bingoogolapple.qrcode.zxingcore.BarcodeType;
 import cn.bingoogolapple.qrcode.zxingcore.QRCodeView;
 
 
-public class ZXingScanActivity extends BaseAppCompatActivity{
+public class ZXingScanActivity extends BaseAppCompatActivity {
 
     private static final String TAG = ZXingScanActivity.class.getSimpleName();
     private ZXingView mZXingView;
@@ -32,6 +33,7 @@ public class ZXingScanActivity extends BaseAppCompatActivity{
         public void onScanQRCodeSuccess(String result) {
             ToastUtil.toastLong(ZXingScanActivity.this, "result = " + result);
             vibrate();
+            playSound();
             mZXingView.startSpot(); // 延迟0.5秒后开始识别
         }
 
@@ -57,6 +59,7 @@ public class ZXingScanActivity extends BaseAppCompatActivity{
             ToastUtil.toastLong(ZXingScanActivity.this, "onScanQRCodeOpenCameraError");
         }
     };
+    private MediaPlayer mediaPlayer;
 
     /**
      * 标题栏的返回按钮被按下的时候回调此函数
@@ -179,6 +182,7 @@ public class ZXingScanActivity extends BaseAppCompatActivity{
 
     /**
      * 布局中直接定义的点击事件
+     *
      * @param v
      */
     public void onClick(View v) {
@@ -281,5 +285,24 @@ public class ZXingScanActivity extends BaseAppCompatActivity{
             default:
                 break;
         }
+    }
+
+    /**
+     * 播放二维码扫描声音
+     */
+    private void playSound() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            return;
+        }
+        mediaPlayer = MediaPlayer.create(this, R.raw.qr_code);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                ZXingScanActivity.this.mediaPlayer.stop();
+                ZXingScanActivity.this.mediaPlayer.release();
+                ZXingScanActivity.this.mediaPlayer = null;
+            }
+        });
+        mediaPlayer.start();
     }
 }
